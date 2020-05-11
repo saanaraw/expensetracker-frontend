@@ -9,25 +9,49 @@ import { Link } from 'react-router-dom';
 
 class Expenses extends Component {
     state = { 
-        date: new Date()
-     }
+        date: new Date(),
+        isLoading: true,
+        expenses: []
+    }
+    
+    async componentDidMount() {
+        const response = await fetch('/api/categories');
+        const body = await response.json();
+        this.setState({Categories : body, isLoading : false})
+    }
     
     render() { 
         const title=<h3>Add new expense</h3>
+        const {Categories, isLoading} = this.state;
+        if (isLoading)
+            return(<div>Loading.....</div>)
+
+        let optionList =
+            Categories.map(category=>
+                <option id={category.id}>
+                    {category.name}
+                </option>
+                )
+
         return ( 
             <div>
                 <AppNav />
                 <Container>
                     {title}
-                    <Form>
+                    <Form onSubmit={this.handleSubmit}>
                         <FormGroup>
                             <Label for="title">Title</Label>
                             <Input type="text" name="title" id="title" 
-                            onChange={this.handleChange}/>
+                            onChange={this.handleChange} autoComplete="name"/>
                         </FormGroup>
 
                         <FormGroup>
                             <Label for="category">Category</Label>
+
+                            <select>
+                                {optionList}
+                            </select>
+
                             <Input type="text" name="category" id="category" 
                             onChange={this.handleChange}/>
                         </FormGroup>
@@ -35,7 +59,7 @@ class Expenses extends Component {
                         <FormGroup>
                             <Label for="expenseDate">Expense Date</Label>
                             <DatePicker selected={this.state.date} 
-                            onChange={this.handleChange}/>
+                            onChange={this.handleDateChange}/>
                         </FormGroup>
 
                         <div className="row">
