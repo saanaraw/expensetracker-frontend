@@ -6,7 +6,7 @@ class AppNav extends Component {
     render (){
         return (
             <div>
-            <Navbar color="light" light expand="md">
+            <Navbar color="dark" dark expand="md">
                 <NavbarBrand href="/">Expense Tracker Application</NavbarBrand>
                 <Nav className="mr-auto" navbar>
                     <NavItem>
