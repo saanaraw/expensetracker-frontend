@@ -8,37 +8,46 @@ import { Link } from 'react-router-dom';
 
 
 class Expenses extends Component {
-    state = {  }
-    handleChange
+    state = { 
+        date: new Date()
+     }
+    
     render() { 
+        const title=<h3>Add new expense</h3>
         return ( 
             <div>
                 <AppNav />
                 <Container>
+                    {title}
                     <Form>
                         <FormGroup>
-                            <label for="title">Title</label>
-                            <input type="text" name="title" id="title" onChange={this.handleChange}/>
+                            <Label for="title">Title</Label>
+                            <Input type="text" name="title" id="title" 
+                            onChange={this.handleChange}/>
                         </FormGroup>
 
                         <FormGroup>
-                            <label for="category">Category</label>
-                            <input type="text" name="category" id="category" onChange={this.handleChange}/>
+                            <Label for="category">Category</Label>
+                            <Input type="text" name="category" id="category" 
+                            onChange={this.handleChange}/>
                         </FormGroup>
 
                         <FormGroup>
-                            <label for="expenseDate">Expense Date</label>
-                            <input type="text" name="expenseDate" id="expenseDate" onChange={this.handleChange}/>
+                            <Label for="expenseDate">Expense Date</Label>
+                            <DatePicker selected={this.state.date} 
+                            onChange={this.handleChange}/>
                         </FormGroup>
 
-                        <FormGroup>
-                            <label for="location">Location</label>
-                            <input type="text" name="location" id="location" onChange={this.handleChange}/>
-                        </FormGroup>
+                        <div className="row">
+                            <FormGroup className="col-md-4 mb-3">
+                                <Label for="location">Location</Label>
+                                <Input type="text" name="location" id="location"/>
+                            </FormGroup>
+                        </div>
 
                         <FormGroup>
                             <Button color="primary" type="submit">Save</Button>
-                            <Button tag="secondary" tag={Link} to="/category">Cancel</Button>
+                            <Button color="secondary" tag={Link} to="/category">Cancel</Button>
                             </FormGroup>
                     </Form>
                 </Container>
